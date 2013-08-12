@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Network for Choreography &amp; Related Art</title>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}reset.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}960.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}formalize.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css">
+<script src="{{ STATIC_URL }}jquery.min.js"></script>
+<script src="{{ STATIC_URL }}jquery.formalize.js"></script>
+<script src="{{ STATIC_URL }}jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}jquery.placeheld.min.js"></script>
+<script src="{{ STATIC_URL }}jquery.shorten.js"></script>
+{% block javascript %}
+{% endblock %}
+</head>
+<body id="{{ slug }}">
+<div id="header2" class="container_12">
+
+<div class="grid_12" id="header">
+{% block header %}
+<span style="float: right; line-height: 44px;">
+{% block header_authentication %}
+{% if user.is_authenticated %}
+Hallo {{ user.get_full_name }}. <a href="/logout?next={{ request.path }}">Logout</a>
+{% if user.is_superuser %}, <a href="/all-emails">E-mail list</a>.{% endif %}
+{% else %}
+<form method="post" action="/login">
+{% csrf_token %}
+<input id="id_username" type="text" name="username" maxlength="30" placeholder="e-mail address" /> <input type="password" name="password" id="id_password" placeholder="password"/>
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ request.path }}" />
+</form>
+{% endif %}
+{% endblock %}
+</span>
+<h1><a href="/">Network for Choreography &amp; Related Art</a></h1>
+    <div class="deco nobottom"></div>
+<span style="float: right; line-height: 32px;">
+<iframe src="http://www.facebook.com/plugins/like.php?app_id=257481544264025&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FNetwork-for-Choreography-Related-Art%2F211398565541501%3Fref%3Dts&amp;send=false&amp;layout=button_count&amp;width=128&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:128px; height:21px; padding-top:11px;" allowTransparency="true"></iframe>
+</span>
+  <h4>Freelance dance artists articulate a new work model</h4>
+{% endblock %}
+</div>
+
+</div>
+
+<div id="content" class="container_12">
+{% block main %}
+{% endblock %}
+</div>
+
+<div class="container_12">
+{% block footer %}
+<div class="grid_12 ">
+<div class="deco" style="margin-top:40px;"><span style="float:left;">an initiative by <a href="http://www.danslab.nl/" title="Danslab – News">danslab <span>»</span></a>.</span> <span style="float:right;">design by <a href="http://schr.fr/" title="Schr.fr">schr.fr <span>»</span></a>.</span>
+{% endblock %}
+</div>
+</div>
+</div>
+
+{% block thanks %}
+{% endblock %}
+
+</div>
+
+
+
+</div>
+<script>
+$('#text h3, #events .sidebar h3').css('margin-bottom','0').after('<div class="deco"></div>') 
+$('.fcom').toggle()
+$("#signform").validate();
+
+twee = '.balsnad@ofni||ln'
+een = '.tra-cihpargoerohc-rof-krowten@tcatnoc||ln'
+tweetjes = twee.split("||");
+eentjes = een.split("||");
+var reverse = function (s) {
+  var ret ='';
+  for (var i=s.length-1;i>=0;i--)
+    ret+=s.charAt(i);
+  return ret;
+}
+twee = reverse(tweetjes[0])+reverse(tweetjes[1]);
+een = reverse(eentjes[0])+reverse(eentjes[1]);
+
+$('#dam').attr('href', 'mailto:' + een + '?cc=' + twee);
+$('.maa').attr('href', 'mailto:' + een + '?cc=' + twee);
+$('.maa').text(een);
+
+$("input[placeholder]").placeHeld();
+
+{% block domready %}
+
+{% endblock %}
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block main %}
+
+{{ flatpage.content }}
+
+{% get_comment_list for flatpage as comment_list %}
+<dl class="comments">
+  {% for comment in comment_list %}
+    <dt id="c{{ comment.id }}">
+        {{ comment.submit_date }} - {{ comment.name }}
+    </dt>
+    <dd>
+        <p>{{ comment.comment }}</p>
+    </dd>
+  {% endfor %}
+</dl>
+
+
+<p><a onclick="$('.fcom').toggle()">Add your own hyperlink!</a></p>
+
+{% load comments i18n %}
+{% get_comment_form for flatpage as form %}
+<form action="/comments2/post" enctype="multipart/form-data" method="post" class="fcom{% if not user.is_authenticated %} validated-form{% endif %}" id="f-{{event.slug}}">
+{% csrf_token %}
+{% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}
+    <p><label for="id_comment">Comment</label><textarea id="id_comment" rows="10" cols="40" name="comment" class="required"></textarea></p>
+    {% if not user.is_authenticated %}
+    <p><table>
+    <tr><td><label for="id_email">Email address: </td><td><input type="text" name="email" id="id_email" class="required email"/></td></tr>
+    <tr></tr><td><label for="id_name">Name: </td><td><input id="id_name" type="text" name="name" maxlength="50" class="required"/></td></tr>
+    </table></p>
+    {% endif %}
+    {{ form.honeypot }}
+    {{ form.content_type }} 
+    {{ form.object_pk }} 
+    {{ form.timestamp }} 
+    {{ form.security_hash }} 
+    <p class="submit">
+    <input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" />
+  </p>
+<input type="hidden" name="next" value="/about" />
+</form>
+
+</div>
+{% endblock %}

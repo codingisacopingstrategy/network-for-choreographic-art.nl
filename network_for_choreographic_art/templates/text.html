@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block javascript %}
+{% endblock %}
+
+{% block main %}
+
+<div class="grid_8">
+<h2>{{ text.title }}</h2>
+<div class="deco"></div>
+	
+{% for paragraph in paragraphs %}
+{{ paragraph.content|safe }}
+{% get_comment_count for paragraph as comment_count %}
+{% get_comment_list for paragraph as comment_list %}
+<dl class="comments">
+  {% for comment in comment_list %}
+    <dt id="c{{ comment.id }}">
+        {{ comment.submit_date }} - {{ comment.name }}
+    </dt>
+    <dd>
+        <p>{{ comment.comment }}</p>
+    </dd>
+  {% endfor %}
+</dl>
+<p class="commentlink"><a onclick="$('#f-{{paragraph.id}}').toggle()">Add comment</a></p>
+
+{% get_comment_form for paragraph as form %}
+{% load comments i18n %}
+<form action="/comments2/post" enctype="multipart/form-data" method="post" class="fcom{% if not user.is_authenticated %} validated-form{% endif %}" id="f-{{paragraph.id}}">
+{% if not user.is_authenticated %}
+<p>To comment, you have to <a href="/login?next={{ request.path }}">log in</a> or <a href="/sign-up?next={{ request.path }}">sign up</a>.</p>
+{% else %}
+{% csrf_token %}
+{% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}
+    <p><label for="id_comment">Comment</label><textarea id="id_comment" rows="10" cols="40" name="comment" class="required"></textarea></p>
+
+    {{ form.honeypot }}
+    {{ form.content_type }} 
+    {{ form.object_pk }} 
+    {{ form.timestamp }} 
+    {{ form.security_hash }} 
+    <p class="submit">
+    <input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" />
+  </p>
+<input type="hidden" name="next" value="/events/#{{event.slug}}" />
+{% endif %}
+</form>
+
+{% endfor %}
+</div>
+
+<div class="grid_3 prefix_1">
+&nbsp;
+</div>
+
+{% endblock %}
+
+{% block thanks %}
+{% endblock %}

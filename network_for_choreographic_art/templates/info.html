@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="grid_8">
+<h2>Phase 3</h2>
+
+<p class="intro">We shape and articulate a concept of a freelance scene for Choreography &amp; Related Arts, where the national and local government is one significant partner among others: where we are taking responsibility for the nature, the purpose and the scale of our work.</p>
+<p>Outcomes will be compiled into a representative document for the Secretary of State, by May.</p>
+
+<h3>Guidelines</h3>
+
+<ul>
+<li>Step by step- non linearly, and from staying connected</li>
+<li>the energy for making of this network comes from the doers.</li>
+<li>contributing  a topic from out the own interest</li>
+<li>with an open attitude: everybody can join &amp; is free to contribute the way he / she wants (as initiator, online discussion partner, participant…)</li>
+<li>with an open attitude to the other (embracing differences)</li>
+<li>with the acknowledgment, that we build a new context that includes a set of propositions outside the common box &amp; comfort zone. They cannot all be valid and get confirmed by everybody.</li>
+</ul>
+
+
+<h3>Rules</h3>
+
+<ul class="biglist">
+<li>One person names him/herself as initiator.</li>
+<li>The group consists of a minimum of 3 people.</li>
+<li>You define an outline/clear focus for the approach of the subject</li>
+<li>The initiator is responsible to provide an outcome back to the network</li>
+<li>The outcome includes one visual/drawing/scratch of the subject.</li>
+</ul>
+
+<h3>Practical information</h3>
+<p><strong>Timeframe:</strong> All brainstorms will contribute to the creation of a new surrounding. It will have to grow, step by step. Though, only those events organised in April will benefit to the concrete plan that will be handed to the Secretary of State, in early May.</p>
+
+<p><strong>Where:</strong>  A set of basic spaces can be used in various cities. But feel free to organize a meeting in any place you like. The ones you can contact for sure:  The Hague – Danslab, Amsterdam – Henny Jurriëns Stichting, Rotterdam-Schiedam – Ruimte in Beweging, Tilburg – BBKC.</p>
+
+<p><strong>Other offers:</strong> are you able to offer any kind of support, please post to the <a href="/events/">events page</a>!</p>
+</div>
+
+<div class="grid_3 prefix_1">
+<h3><a href="/events/">Actions</a></h3>
+<ul>
+{% for event in events %}
+<li><a href="/events/#{{event.slug}}" title="{{event.title}}">{{ event.title }}</a></li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

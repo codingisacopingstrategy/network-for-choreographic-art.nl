@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block main %}
+{% if not user.is_authenticated %}
+<form action="sign-up" method="post" class="registration">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  <table>
+  {% for field in form %}
+    {% if field.name != "username" %}
+      <tr>
+        <td>
+          {{ field.label_tag }}
+          {% if field.field.required %}<span class="required">*</span>{% endif %}
+        </td>
+        <td>
+          {{ field }}
+          {{ field.errors }}
+        </td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+    </table>
+    <input type="submit" value="Sign Up"/>
+</form>
+{% else %}
+<p>You are already logged in as {{ user.get_full_name }}. To sign up as a different user, please <a href="/logout?next={{ request.path }}">log out</a> first.</p>
+{% endif %}
+{% endblock %}
+
+{% block header_authentication %}{% endblock %}

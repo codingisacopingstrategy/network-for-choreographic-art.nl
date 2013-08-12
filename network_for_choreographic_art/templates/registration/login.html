@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block main %}
+{% if not user.is_authenticated %}
+<form action="login" method="post" class="padding-bottom registration">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{{ request.path }}{% endif %}" />
+  {{ form.non_field_errors }}
+  <table>
+  {% for field in form %}
+    <tr>
+      <td>
+        {% if field.name == "username" %}
+          Email address
+        {% else %}
+          {{ field.label_tag }}
+        {% endif %}
+        {% if field.field.required %}<span class="required">*</span>{% endif %}
+      </td>
+      <td>
+        {{ field }}
+        {{ field.errors|safe }}
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+  <input type="submit" value="Sign In" />
+</form>
+
+<p>To be able to log in, you need to be <a href="/sign-up?next={{ request.path }}">signed up</a> for the network.</p>
+
+<p>If you signed the petition we already have an account for you. You just need to <a href="password-reset">reset your password</a>.</p>
+
+<p><a href="password-reset">Forgot your password?</a></p>
+
+{% else %}
+<p>You are already logged in as {{ user.get_full_name }}. To log in as a different user, please <a href="/logout?next={{ request.path }}">log out</a> first.</p>
+{% endif %}
+{% endblock %}
+
+{% block header_authentication %}{% endblock %}

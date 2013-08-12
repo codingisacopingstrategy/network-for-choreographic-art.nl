@@ -1,0 +1,27 @@
+  <form action="/proposal/sign/" enctype="multipart/form-data" method="post" id="signform">
+  	{% csrf_token %}
+    <p class="tiny">
+      <label for="full_name">
+        Name
+      </label>
+      <input class="required" type="text" id="full_name" name="full_name" />
+    </p>
+    <p class="tiny">
+      <label for="function">
+        Function
+      </label>
+      <input class="required" type="text" id="function" name="function"/>
+    </p>
+
+    <p>
+      <label for="email">
+        Email
+      </label>
+      <input class="required email" type="email" id="email" name="email" placeholder="name@domain.com" />
+    </p>
+
+    <p>
+      <input type="submit" value="Sign" />
+      &nbsp;
+    </p>
+  </form>

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block javascript %}
+<script src="{{ STATIC_URL }}jquery-ui-1.8.11.custom.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}ui-lightness/jquery-ui-1.8.11.custom.css">
+{% endblock %}
+
+{% block domready %}
+$('#date').datepicker({ dateFormat: "dd/mm/yy"});
+$('.validated-form').validate();
+{% endblock %}
+
+{% block main %}
+
+<h2>{{event.title }}</h2>
+<p>Great that you want to organise an event! Please fill in the necessary details in the description area.</p>
+
+  <form action="/events/{{ event.slug }}/organise" enctype="multipart/form-data" method="post" class="validated-form">
+  	{% csrf_token %}
+    <p class="tiny">
+      <label for="location">
+        Location
+      </label>
+      <input class="required" type="text" id="location" name="location"/>
+    </p>
+    <p class="tiny">
+      <label for="date">
+        Date
+      </label>
+      <input class="required" type="text" id="date" name="date" />
+    </p>
+
+    <p>
+      <label for="description">
+        Description
+      </label>
+      <textarea class="required" id="description" name="description" rows="7" cols="80"></textarea>
+    </p>
+
+    <p>
+      <input type="submit" value="Organise!" />
+      &nbsp;
+    </p>
+  </form>
+{% endblock %}

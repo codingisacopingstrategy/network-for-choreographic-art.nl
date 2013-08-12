@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block domready %}
+$('.validated-form').validate();
+{% endblock %}
+
+{% block main %}
+<div class="grid_8">
+<h2>{{ event.title }}</h2>
+{% if event.owner %}<h3>{{ event.location }} @ {{ event.date }}</h3>
+<div class="deco">Organised by {{ event.owner.get_full_name }} @ {{ event.location }} @ {{ event.date }}</div>
+<p><em>{{ event.description|linebreaks  }}</em></p>
+{% else %}
+<div class="deco"></div>
+{% endif %}
+
+
+{% if event.attendees.all %}
+<p>Joined by:
+{% for attendee in event.attendees.all %}
+{{ attendee.get_full_name }}{% if not forloop.last %}, {% endif %}
+{% endfor %}
+{% endif %}</p>
+
+{% get_comment_list for event as comment_list %}
+<dl class="comments">
+  {% for comment in comment_list %}
+    <dt id="c{{ comment.id }}">
+        {{ comment.submit_date }} - {{ comment.name }}
+    </dt>
+    <dd>
+        <p>{{ comment.comment }}</p>
+    </dd>
+  {% endfor %}
+</dl>
+<ul class="buttonlist">
+{% if not event.owner %}
+<li><a href="/events/{{event.slug}}/organise">Organise</a></li>
+<li><a href="/events/{{event.slug}}/join">Join</a></li>
+{% endif %}
+<li><a onclick="$('#f-{{event.slug}}').toggle()">Comment</a></li>
+</ul>
+
+{% load comments i18n %}
+{% get_comment_form for event as form %}
+<form action="/comments2/post" enctype="multipart/form-data" method="post" class="fcom{% if not user.is_authenticated %} validated-form{% endif %}" id="f-{{event.slug}}">
+{% if not user.is_authenticated %}
+<p>To comment, you have to <a href="/login?next={{ request.path }}">log in</a> or <a href="/sign-up?next={{ request.path }}">sign up</a>.</p>
+{% else %}
+{% csrf_token %}
+{% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}
+    <p><label for="id_comment">Comment</label><textarea id="id_comment" rows="10" cols="40" name="comment" class="required"></textarea></p>
+
+    {{ form.honeypot }}
+    {{ form.content_type }} 
+    {{ form.object_pk }} 
+    {{ form.timestamp }} 
+    {{ form.security_hash }} 
+    <p class="submit">
+    <input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" />
+  </p>
+<input type="hidden" name="next" value="/events/#{{event.slug}}" />
+{% endif %}
+</form>
+{% if photoset %}
+{% for photo in photoset %}
+<img src="{{photo.source}}" width="{{photo.width}}" height="{{photo.height}}">
+{% endfor %}
+{% endif %}
+
+<p><a href="/events/">Back to events</a></p>
+
+</div>
+
+<div class="grid_3 prefix_1">
+{% if event.texts.all %}
+<h3>Results</h3>
+{% for text in event.texts.all %}
+<p><a href="/texts/{{ text.slug }}">{{ text.title }}</a></p>
+<p>published {{ text.publish_date }}</p>
+{% endfor %}
+{% endif %}
+</div>
+
+
+{% endblock %}

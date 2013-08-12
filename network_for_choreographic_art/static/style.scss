@@ -1,0 +1,283 @@
+/* yellow, f3e8d8*/
+$colour: #fff200;
+$gothic: LeagueGothicRegular, Franklin Gothic Medium, Alternate Gothic, Trade Gothic, sans-serif;
+$grotesk: Arial;
+
+@mixin rounded_corners($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin bread {
+    font-size: 14px;
+    font-family: $grotesk;
+}
+
+@mixin tiny {
+	font-size: 12px;
+	line-height: 14px;
+}
+
+@mixin bottom-margin {
+    margin-bottom: 20px;
+}
+
+@font-face {
+    font-family: 'LeagueGothicRegular';
+    src: url('League_Gothic-webfont.eot');
+    src: url('League_Gothic-webfont.eot?iefix') format('eot'),
+         url('League_Gothic-webfont.woff') format('woff'),
+         url('League_Gothic-webfont.ttf') format('truetype'),
+         url('League_Gothic-webfont.svg#webfontbDMP4rcs') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+    line-height: 21px;
+    @include bread
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $gothic;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+h1 {
+    line-height: 44px;
+    font-size: 44px;
+    margin-bottom:0;
+}
+
+h1 a, h2 a, h3 a, h4 a {
+	border-bottom: none;
+	
+}
+
+h2 {
+    line-height: 38px;
+    font-size: 38px;
+    margin-bottom:0;
+}
+
+h3, h4 {
+    line-height: 32px;
+    font-size: 32px;
+    margin-bottom:0;
+}
+
+h3 span, h4 span {
+    @include bread
+}
+
+h5 {
+    line-height: 24px;
+    font-size: 24px;
+    font-family: $grotesk;
+}
+
+#header h4 {
+}
+
+.deco h4 {
+line-height: 20px;
+font-size: 16px;
+text-align: left;
+font-family: $grotesk;
+margin-left: 18px;
+}
+
+p {
+    margin-bottom: 20px;
+    margin-left: 16px;
+    text-indent: 0px;
+    line-height: 21px;
+}
+
+sup {
+    font-size: 8px;
+}
+
+p.intro {
+    line-height: 32px;
+    font-size: 24px;
+    font-family: $grotesk;
+    font-style: italic;
+}
+
+div#content {
+    margin-top: 20px;
+}
+
+div#header {
+margin-bottom: 40px;
+}
+div.deco {
+    margin-left: 24px;
+    height: 20px;
+    background-color: $colour;
+    margin-bottom: 20px;
+}
+
+div.inverse {
+    background-color: $colour;
+    @include rounded_corners(8px);
+    padding: 10px;
+}
+
+div#subnav {
+     /* position: fixed; */
+}
+/* div#content > div {
+    margin-bottom:200px;
+} */
+
+p.crosspost {
+    margin-left: 0;
+    text-indent: 0;
+    font-size: 14px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    border-bottom: 2px solid $colour;
+}
+
+a:hover {
+    font-style: italic;
+}
+
+.inverse a {
+    border-bottom: 1px solid white;
+}
+
+h3 a {
+    border: none;
+}
+
+div.deco a {
+    border: 2px dotted white;
+    font-weight: bold;
+    font-style: italic;
+}
+
+div.deco a:hover {
+    border-bottom: 2px dotted white;
+    font-style: normal;
+}
+
+div.deco span span {
+/* color:white; */
+}
+
+form label {
+/*    width: 60px;
+    display: inline-block;*/
+    display: block;
+}
+
+form label.error {
+  color: red;
+  font-style:italic;
+}
+
+form p.tiny {
+    margin-bottom: 0;
+}
+
+form label.wide {
+    width: inherit;
+}
+
+form.fcom label {
+    display: inline;
+}
+
+form.fcom {
+@include tiny;
+}
+
+form.registration label {
+    display: inline;
+    margin-right: 10px;
+}
+
+form.registration {
+    @include bottom-margin;
+}
+
+.proposals img {
+    border: 1px solid $colour;
+}
+
+
+ul {
+    margin-left: 16px;
+        margin-bottom: 20px;
+}
+
+li {
+  list-style-type: circle;
+  list-style-image: url("bullet.png");
+}
+
+ul.thmbs li {
+  display: inline;
+  margin: 2px;
+}
+
+.biglist li {
+    font-size: 18px;
+    line-height:27px;
+    font-style: italic;
+}
+
+dl.comments {
+@include tiny;
+padding-left:80px;
+text-align: right;
+}
+
+p.commentlink {
+text-align: right;
+}
+
+.small {
+@include tiny;
+}
+
+p.small {
+text-indent:-16px;
+}
+
+.bottom-padding {
+    @include bottom-margin;
+}
+
+.nobottom {
+margin-bottom:0 !important;
+}
+
+.last {
+margin-bottom: 32px;
+}
+
+.center {
+    text-align: center;
+}
+
+ul.buttonlist li {
+display: inline;
+}
+
+ul.buttonlist a {
+border: none;
+}
+
+#id_honeypot {
+    visibility:hidden;
+}

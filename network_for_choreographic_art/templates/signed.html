@@ -1,0 +1,9 @@
+{% if petition %}
+<ul>
+{% for vote in petition %}
+  <li>{{ vote.voter.full_name }} – {{ vote.voter.function }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>Can not find petition data.</p>
+{% endif %}

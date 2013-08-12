@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block domready %}
+$('.validated-form').validate();
+{% endblock %}
+
+{% block main %}
+<div class="grid_8">
+
+<p class="intro">We develop the network together through work sessions: create your own session, inscribe, or discuss to prepare.</p>
+
+{% if upcoming_events %}
+<h2  class="bottom-padding">Upcoming</h2>
+{% endif %}
+
+{% for event in upcoming_events %}
+
+<div class="event" id="{{ event.slug }}">
+<h5><a href="/events/{{event.slug}}">{{ event.title }} {{event.no_of_attendees}}</a></h5>
+
+{% if event.owner %}
+<div class="deco">Organised by {{ event.owner.get_full_name }} @ {{ event.location }} @ {{ event.date }}</div>
+<p><em>{{ event.description }}</em></p> <p><a href="/events/{{event.slug}}">Read more, join and comment</a></p>
+{% endif %}
+</div>
+
+<h4>&nbsp;</h4>
+
+{% endfor %}
+
+
+<h2 class="bottom-padding">Previous Events</h2>
+
+<dl>
+{% for event in past_events %}
+{% if event.description %}
+<dt><h5><a href="/events/{{event.slug}}">{{ event.title }}</a></h5></dt>
+{% else %}
+<dt><h5>{{ event.title }}</h5></dt>
+{% endif %}
+<dd class="bottom-padding">{{ event.date }} {{ event.location }}</dd>
+{% endfor %}
+</dl>
+
+</div>
+
+<div class="prefix_1 grid_3 sidebar">
+<h3>Propose an event</h3>
+
+<p>If you have a subject upon which you want to propose an event, <a id="dam">get in touch</a>.</p>
+
+
+<h3>Guidelines</h3>
+<ul>
+<li>One person names him/herself as initiator.</li>
+<li>The group consists of a minimum of 3 people.</li>
+<li>You define an outline/clear focus for the approach of the subject</li>
+<li>The initiator is responsible to provide an outcome back to the network</li>
+<li>The outcome includes one visual/drawing/scratch of the subject.</li>
+</ul>
+
+</div>
+
+{% endblock %}

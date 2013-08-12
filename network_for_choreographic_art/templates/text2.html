@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block javascript %}
+<script src="{{ STATIC_URL }}stickyFloat.js"></script>
+{% endblock %}
+
+{% block domready %}
+$('.comment-body').shorten()
+{% endblock %}
+
+{% block main %}
+<div class="grid_2">
+&nbsp;
+<div id="subnav">
+<ul>
+<li><a href="#the_situation">The Situation</a></li>
+<li><a href="#a_petition">A Petition</a></li>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#what_is_the_aim">What is the Aim?</a></li>
+<li><a href="#the_proposal">The Proposal</a></li>
+<li><a href="#a_new_climate">A New Climate</a></li>
+</ul>
+</div>
+</div>
+
+<div class="grid_6 suffix_1">
+{% for paragraph in text %}
+{{ paragraph.content|safe }}
+{% get_comment_count for paragraph as comment_count %}
+{% get_comment_list for paragraph as comment_list %}
+<dl class="comments">
+  {% for comment in comment_list %}
+    <dt id="c{{ comment.id }}">
+        {{ comment.submit_date }} - {{ comment.name }}
+    </dt>
+    <dd>
+        <p class="comment-body">{{ comment.comment }}</p>
+    </dd>
+  {% endfor %}
+</dl>
+
+{% endfor %}
+</div>
+
+<div class="grid_3">
+
+<h3>Signed</h3>
+{% include "signed.html" %}
+</div>
+
+{% endblock %}
+
+{% block thanks %}
+{% include "thanks.html" %}
+{% endblock %}
